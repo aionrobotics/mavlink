@@ -1922,6 +1922,49 @@
         <param index="7">User defined</param>
       </entry>
       <!-- END of user range (31000 to 31999) -->
+    <!-- ICE (Internal Combustion Engine) related messages. Please keep the range [42300, 42399) reserved for ICE. -->
+      <entry value="42300" name="MAV_CMD_ICE_TRANSMISSION_STATE">
+      <description>The currently selected gear the vehicle engine transmission is in. This is usually for vehicles with internal combustion engines.</description>
+        <param index="1">Index of gearbox transmission.</param>
+        <param index="2">Gear position state, see MAV_ICE_TRANSMISSION_GEAR_STATE enum.</param>
+        <param index="3">PWM value. This is the PWM value of the output channel, if any. Use 0 if not used, doesnt' apply, or is unknown.</param>
+        <param index="4">Reserved</param>
+        <param index="5">Reserved</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>
+      <entry value="42301" name="MAV_CMD_ICE_SET_TRANSMISSION_STATE">
+      <description>Set the gear the vehicle engine transmission shall change to. This is usually for vehicles with internal combustion engines.</description>
+        <param index="1">Index of gearbox transmission.</param>
+        <param index="2">Gear position state, see MAV_ICE_TRANSMISSION_GEAR_STATE enum.</param>
+        <param index="3">PWM value. This is the PWM value of the output channel when the gear position state is set to PWM_VALUE.</param>
+        <param index="4">Reserved</param>
+        <param index="5">Reserved</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>
+      <entry value="42302" name="MAV_CMD_ICE_FUEL_LEVEL">
+		<description>Fuel tank/cell level.</description>
+        <param index="1">Index of fuel tank.</param>
+        <param index="2">Fuel type, see MAV_ICE_FUEL_TYPE enum.</param>
+        <param index="3">Fuel level measurement units, see MAV_ICE_FUEL_LEVEL_UNITS enum.</param>
+        <param index="4">Fuel level - Max. Useful to calculate a percent.</param>
+        <param index="5">Fuel level - Current.</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>
+      <entry value="42303" name="MAV_CMD_ICE_COOLANT_TEMP">
+      <description>The temperature of the cooleant system of an internal combustion engine.</description>
+        <param index="1">Index of coolant system.</param>
+        <param index="2">Temperature in degrees C.</param>
+        <param index="3">Temperature Max that is considered too hot for this engine. Use NaN for unknown.</param>
+        <param index="4">Temperature Min that is considered too cold to safely run at normal speed. Use NaN for unknown.</param>
+        <param index="5">Reserved</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>
+	  
+      <!-- END of ICE range (42300 to 42399) -->
     </enum>
     <enum name="MAV_DATA_STREAM">
       <description>A data stream is not a fixed set of messages, but rather a
@@ -2105,6 +2148,114 @@
       </entry>
       <entry value="15" name="MAV_MISSION_OPERATION_CANCELLED">
         <description>Current mission operation cancelled (e.g. mission upload, mission download).</description>
+      </entry>
+    </enum>
+    <enum name="MAV_ICE_FUEL_LEVEL_UNITS">
+      <description>Internal Combusion Engine (ICE) fuel level units.</description>
+      <entry value="0" name="MAV_ICE_FUEL_LEVEL_UNITS_PERCENT">
+        <description>Percent.</description>
+      </entry>
+      <entry value="1" name="MAV_ICE_FUEL_LEVEL_UNITS_POUNDS">
+        <description>Pounds.</description>
+      </entry>
+      <entry value="2" name="MAV_ICE_FUEL_LEVEL_UNITS_KILOGRAMS">
+        <description>Kilograms.</description>
+      </entry>
+      <entry value="3" name="MAV_ICE_FUEL_LEVEL_UNITS_GALLON">
+        <description>Gallon.</description>
+      </entry>
+      <entry value="4" name="MAV_ICE_FUEL_LEVEL_UNITS_LITER">
+        <description>Liter.</description>
+      </entry>
+    </enum>
+    <enum name="MAV_ICE_FUEL_TYPE">
+      <description>Internal Combusion Engine (ICE) fuel type.</description>
+      <entry value="0" name="MAV_ICE_FUEL_TYPE_GASOLINE">
+        <description>Gasoline or Petrol.</description>
+      </entry>
+      <entry value="1" name="MAV_ICE_FUEL_TYPE_DIESEL">
+        <description>Diesel.</description>
+      </entry>
+      <entry value="2" name="MAV_ICE_FUEL_TYPE_2_STROKE_MIX">
+        <description>2 Stroke Mix.</description>
+      </entry>
+      <entry value="3" name="MAV_ICE_FUEL_TYPE_KEROSENE">
+        <description>Kerosene.</description>
+      </entry>
+      <entry value="4" name="MAV_ICE_FUEL_TYPE_JET_A_1">
+        <description>Jet A-1.</description>
+      </entry>
+      <entry value="5" name="MAV_ICE_FUEL_TYPE_JET_B">
+        <description>Jet B.</description>
+      </entry>
+      <entry value="6" name="MAV_ICE_FUEL_TYPE_JET_TS_1">
+        <description>Jet TS-1.</description>
+      </entry>
+      <entry value="7" name="MAV_ICE_FUEL_TYPE_AVGAS_80">
+        <description>AVGAS 80.</description>
+      </entry>
+      <entry value="8" name="MAV_ICE_FUEL_TYPE_AVGAS_100">
+        <description>AVGAS 100.</description>
+      </entry>
+      <entry value="9" name="MAV_ICE_FUEL_TYPE_AVGAS_100LL">
+        <description>AVGAS 100LL.</description>
+      </entry>
+    </enum>
+    <enum name="MAV_ICE_TRANSMISSION_GEAR_STATE">
+      <description>The state of the vehicle's engine transmission, also known as gear. This is typically used in vehicles with internal combustion engines.</description>
+      <entry value="0" name="MAV_ICE_TRANSMISSION_GEAR_STATE_UNKNOWN">
+        <description>Unknown.</description>
+      </entry>
+      <entry value="1" name="MAV_ICE_TRANSMISSION_GEAR_STATE_PARK">
+        <description>Park.</description>
+      </entry>
+      <entry value="2" name="MAV_ICE_TRANSMISSION_GEAR_STATE_NEUTRAL">
+        <description>Neutral. Engine is physically disconnected.</description>
+      </entry>
+      <entry value="3" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD">
+        <description>Forward for single gear systems or Variable Transmissions.</description>
+      </entry>
+      <entry value="4" name="MAV_ICE_TRANSMISSION_GEAR_STATE_REVERSE">
+        <description>Reverse for single gear systems or Variable Transmissions.</description>
+      </entry>
+      <entry value="5" name="MAV_ICE_TRANSMISSION_GEAR_STATE_REVERSE_1">
+        <description>Reverse 1. Implies multiple gears exist.</description>
+      </entry>
+      <entry value="6" name="MAV_ICE_TRANSMISSION_GEAR_STATE_REVERSE_2">
+        <description>Reverse 2 for faster reverse speeds.</description>
+      </entry>
+      <entry value="7" name="MAV_ICE_TRANSMISSION_GEAR_STATE_REVERSE_3">
+        <description>Reverse 3 for faster reverse speeds.</description>
+      </entry>
+      <entry value="8" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_1">
+        <description>First gear. Implies multiple gears exist.</description>
+      </entry>
+      <entry value="9" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_2">
+        <description>Second gear.</description>
+      </entry>
+      <entry value="10" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_3">
+        <description>Third gear.</description>
+      </entry>
+      <entry value="11" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_4">
+        <description>Fourth gear.</description>
+      </entry>
+      <entry value="12" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_5">
+        <description>Fifth gear.</description>
+      </entry>
+      <entry value="13" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_6">
+        <description>Sixth gear.</description>
+      </entry>
+      <entry value="14" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_7">
+        <description>Seventh gear.</description>
+      </entry>
+      <entry value="15" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_8">
+        <description>Eighth gear.</description>
+      </entry>
+      <entry value="16" name="MAV_ICE_TRANSMISSION_GEAR_STATE_FORWARD_9">
+        <description>Ninth gear.</description>
+      </entry>
+      <entry value="17" name="MAV_ICE_TRANSMISSION_GEAR_STATE_PWM_VALUE">
+        <description>Ninth gear.</description>
       </entry>
     </enum>
     <enum name="MAV_SEVERITY">
