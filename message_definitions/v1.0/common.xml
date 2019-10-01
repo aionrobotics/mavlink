@@ -1381,7 +1381,7 @@
       </entry>
       <entry value="223" name="MAV_CMD_DO_ENGINE_CONTROL" hasLocation="false" isDestination="false">
         <description>Control vehicle engine. This is interpreted by the vehicles engine controller to change the target engine state. It is intended for vehicles with internal combustion engines</description>
-        <param index="1" label="Start Engine" minValue="0" maxValue="1" increment="1">0: Stop engine, 1:Start Engine</param>
+        <param index="1" label="Start Engine" minValue="0" maxValue="1" increment="2">0: Stop engine, 1: Accessory, 2:Start/Run Engine</param>
         <param index="2" label="Cold Start" minValue="0" maxValue="1" increment="1">0: Warm start, 1:Cold start. Controls use of choke where applicable</param>
         <param index="3" label="Height Delay" units="m" minValue="0">Height delay. This is for commanding engine start only after the vehicle has gained the specified height. Used in VTOL vehicles during takeoff to start engine after the aircraft is off the ground. Zero for no delay.</param>
         <param index="4" label="Gear State">Set transmission gear state using enum MAV_ICE_TRANSMISSION_GEAR_STATE. Note, for safety reasons start engine must be negative to ensure we never set the gear and start the engine at the same time. Enum values _UNKNOWN(0) and _PWM_VALUE(17) are ignored.</param>
