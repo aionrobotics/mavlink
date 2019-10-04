@@ -724,14 +724,23 @@
     </enum>
     <enum name="MAV_M8_STATUS">
       <description>Status of the Quanergy M8 LiDAR</description>
-      <entry value="0" name="MAV_M8_OFF">
+      <entry value="0" name="MAV_M8_UNKNOWN">
+        <description>M8 is active and scanning</description>
+      </entry>
+      <entry value="1" name="MAV_M8_OFF">
         <description>M8 is currently turned off.</description>
       </entry>
-      <entry value="1" name="MAV_M8_STARTUP">
+      <entry value="2" name="MAV_M8_STARTUP">
         <description>M8 is in startup mode.</description>
       </entry>
-      <entry value="2" name="MAV_M8_RUNNING">
+      <entry value="3" name="MAV_M8_RUNNING">
         <description>M8 is active and scanning</description>
+      </entry>
+      <entry value="4" name="MAV_M8_NO_SCAN">
+        <description>M8 is in an error state no output detected</description>
+      </entry>
+      <entry value="5" name="MAV_M8_ERROR">
+        <description>M8 is in an error state</description>
       </entry>
     </enum>
     <!-- The MAV_CMD enum entries describe either: -->
