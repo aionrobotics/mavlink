@@ -734,6 +734,21 @@
         <description>M8 is active and scanning</description>
       </entry>
     </enum>
+    <enum name="MAV_IGN_STATE">
+      <description>Status of ICE Engine</description>
+      <entry value="0" name="MAV_ENGINE_OFF">
+        <description>Engine is stopped/off.</description>
+      </entry>
+      <entry value="1" name="MAV_ACCESORY">
+        <description>Engine is in Accesory.</description>
+      </entry>
+      <entry value="2" name="MAV_START_RUN">
+        <description>Engine Start or Running</description>
+      </entry>
+      <entry value="13" name="MAV_ABORT_RECHARGE">
+        <description>Engine Abroted Recharge</description>
+      </entry>
+    </enum>
     <!-- The MAV_CMD enum entries describe either: -->
     <!--  * the data payload of mission items (as used in the MISSION_ITEM and MISSION_ITEM_INT messages) -->
     <!--  * the data payload of mavlink commands (as used in the COMMAND_INT and COMMAND_LONG messages) -->
@@ -1940,7 +1955,7 @@
         <param index="1">Index of gearbox transmission.</param>
         <param index="2">Gear position state, see MAV_ICE_TRANSMISSION_GEAR_STATE enum.</param>
         <param index="3">PWM value. This is the PWM value of the output channel, if any. Use 0 if not used, doesnt' apply, or is unknown.</param>
-        <param index="4">Ignition State. Same as MAV_CMD_DO_ENGINE_CONTROL.param1. 0: Stop engine, 1: Accessory, 2:Start/Run Engine, 13:Abort Recharge</param>
+        <param index="4" label="IGN State" enum="MAV_IGN_STATE">Ignition State. Same as MAV_CMD_DO_ENGINE_CONTROL.param1. 0: Stop engine, 1: Accessory, 2:Start/Run Engine, 13:Abort Recharge</param>
         <param index="5">Gear change pending flag</param>
         <param index="6">Reserved</param>
         <param index="7">Reserved</param>
