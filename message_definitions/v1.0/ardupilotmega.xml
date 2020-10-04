@@ -1032,6 +1032,7 @@
       <entry value="21" name="PLANE_MODE_QRTL"/>
       <entry value="22" name="PLANE_MODE_QAUTOTUNE"/>
       <entry value="23" name="PLANE_MODE_QACRO"/>
+      <entry value="24" name="PLANE_MODE_THERMAL"/>
     </enum>
     <enum name="COPTER_MODE">
       <description>A mapping of copter flight modes for custom_mode field of heartbeat.</description>
@@ -1095,6 +1096,25 @@
       <entry value="3" name="TRACKER_MODE_SERVO_TEST"/>
       <entry value="10" name="TRACKER_MODE_AUTO"/>
       <entry value="16" name="TRACKER_MODE_INITIALIZING"/>
+    </enum>
+    <enum name="OSD_PARAM_CONFIG_TYPE">
+      <description>The type of parameter for the OSD parameter editor.</description>
+      <entry value="0" name="OSD_PARAM_NONE"/>
+      <entry value="1" name="OSD_PARAM_SERIAL_PROTOCOL"/>
+      <entry value="2" name="OSD_PARAM_SERVO_FUNCTION"/>
+      <entry value="3" name="OSD_PARAM_AUX_FUNCTION"/>
+      <entry value="4" name="OSD_PARAM_FLIGHT_MODE"/>
+      <entry value="5" name="OSD_PARAM_FAILSAFE_ACTION"/>
+      <entry value="6" name="OSD_PARAM_FAILSAFE_ACTION_1"/>
+      <entry value="7" name="OSD_PARAM_FAILSAFE_ACTION_2"/>
+      <entry value="8" name="OSD_PARAM_NUM_TYPES"/>
+    </enum>
+    <enum name="OSD_PARAM_CONFIG_ERROR">
+      <description>The error type for the OSD parameter editor.</description>
+      <entry value="0" name="OSD_PARAM_SUCCESS"/>
+      <entry value="1" name="OSD_PARAM_INVALID_SCREEN"/>
+      <entry value="2" name="OSD_PARAM_INVALID_PARAMETER_INDEX"/>
+      <entry value="3" name="OSD_PARAM_INVALID_PARAMETER"/>
     </enum>
   </enums>
   <messages>
@@ -1443,7 +1463,7 @@
     </message>
     <message id="191" name="MAG_CAL_PROGRESS">
       <description>Reports progress of compass calibration.</description>
-      <field type="uint8_t" name="compass_id">Compass being calibrated.</field>
+      <field type="uint8_t" name="compass_id" instance="true">Compass being calibrated.</field>
       <field type="uint8_t" name="cal_mask" display="bitmask">Bitmask of compasses being calibrated.</field>
       <field type="uint8_t" name="cal_status" enum="MAG_CAL_STATUS">Calibration Status.</field>
       <field type="uint8_t" name="attempt">Attempt number.</field>
@@ -1455,7 +1475,7 @@
     </message>
     <message id="192" name="MAG_CAL_REPORT">
       <description>Reports results of completed compass calibration. Sent until MAG_CAL_ACK received.</description>
-      <field type="uint8_t" name="compass_id">Compass being calibrated.</field>
+      <field type="uint8_t" name="compass_id" instance="true">Compass being calibrated.</field>
       <field type="uint8_t" name="cal_mask" display="bitmask">Bitmask of compasses being calibrated.</field>
       <field type="uint8_t" name="cal_status" enum="MAG_CAL_STATUS">Calibration Status.</field>
       <field type="uint8_t" name="autosaved">0=requires a MAV_CMD_DO_ACCEPT_MAG_CAL, 1=saved to parameters.</field>
@@ -1492,7 +1512,7 @@
     <!-- realtime PID tuning message -->
     <message id="194" name="PID_TUNING">
       <description>PID tuning information.</description>
-      <field type="uint8_t" name="axis" enum="PID_TUNING_AXIS">Axis.</field>
+      <field type="uint8_t" name="axis" enum="PID_TUNING_AXIS" instance="true">Axis.</field>
       <field type="float" name="desired">Desired rate.</field>
       <field type="float" name="achieved">Achieved rate.</field>
       <field type="float" name="FF">FF component.</field>
@@ -1650,7 +1670,7 @@
     <!-- realtime Adaptive Controller tuning message -->
     <message id="11010" name="ADAP_TUNING">
       <description>Adaptive Controller tuning information.</description>
-      <field type="uint8_t" name="axis" enum="PID_TUNING_AXIS">Axis.</field>
+      <field type="uint8_t" name="axis" enum="PID_TUNING_AXIS" instance="true">Axis.</field>
       <field type="float" name="desired" units="deg/s">Desired rate.</field>
       <field type="float" name="achieved" units="deg/s">Achieved rate.</field>
       <field type="float" name="error">Error between model and vehicle.</field>
@@ -1706,6 +1726,42 @@
       <field type="uint16_t[4]" name="totalcurrent" units="mAh">Total current.</field>
       <field type="uint16_t[4]" name="rpm" units="rpm">RPM (eRPM).</field>
       <field type="uint16_t[4]" name="count">count of telemetry packets received (wraps at 65535).</field>
+    </message>
+    <message id="11033" name="OSD_PARAM_CONFIG">
+      <description>Configure an OSD parameter slot.</description>
+      <field type="uint8_t" name="target_system">System ID.</field>
+      <field type="uint8_t" name="target_component">Component ID.</field>
+      <field type="uint32_t" name="request_id">Request ID - copied to reply.</field>
+      <field type="uint8_t" name="osd_screen">OSD parameter screen index.</field>
+      <field type="uint8_t" name="osd_index">OSD parameter display index.</field>
+      <field type="char[16]" name="param_id">Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string</field>
+      <field type="uint8_t" name="config_type" enum="OSD_PARAM_CONFIG_TYPE">Config type.</field>
+      <field type="float" name="min_value">OSD parameter minimum value.</field>
+      <field type="float" name="max_value">OSD parameter maximum value.</field>
+      <field type="float" name="increment">OSD parameter increment.</field>
+    </message>
+    <message id="11034" name="OSD_PARAM_CONFIG_REPLY">
+      <description>Configure OSD parameter reply.</description>
+      <field type="uint32_t" name="request_id">Request ID - copied from request.</field>
+      <field type="uint8_t" name="result" enum="OSD_PARAM_CONFIG_ERROR">Config error type.</field>
+    </message>
+    <message id="11035" name="OSD_PARAM_SHOW_CONFIG">
+      <description>Read a configured an OSD parameter slot.</description>
+      <field type="uint8_t" name="target_system">System ID.</field>
+      <field type="uint8_t" name="target_component">Component ID.</field>
+      <field type="uint32_t" name="request_id">Request ID - copied to reply.</field>
+      <field type="uint8_t" name="osd_screen">OSD parameter screen index.</field>
+      <field type="uint8_t" name="osd_index">OSD parameter display index.</field>
+    </message>
+    <message id="11036" name="OSD_PARAM_SHOW_CONFIG_REPLY">
+      <description>Read configured OSD parameter reply.</description>
+      <field type="uint32_t" name="request_id">Request ID - copied from request.</field>
+      <field type="uint8_t" name="result" enum="OSD_PARAM_CONFIG_ERROR">Config error type.</field>
+      <field type="char[16]" name="param_id">Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string</field>
+      <field type="uint8_t" name="config_type" enum="OSD_PARAM_CONFIG_TYPE">Config type.</field>
+      <field type="float" name="min_value">OSD parameter minimum value.</field>
+      <field type="float" name="max_value">OSD parameter maximum value.</field>
+      <field type="float" name="increment">OSD parameter increment.</field>
     </message>
   </messages>
 </mavlink>
