@@ -2309,7 +2309,56 @@
         <param index="6">Reserved</param>
         <param index="7">Reserved</param>
       </entry>
-	  
+	    <entry value="42304" name="MAV_CMD_ICE_4WD_STATE">
+      <description>Current state of the 4WD system</description>
+        <param index="1">Front Wheel Drive Status</param>
+        <param index="2">Automatic Descent Control Status</param>
+        <param index="3">Reserved</param>
+        <param index="4">Reserved</param>
+        <param index="5">Reserved</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>
+	    <entry value="42305" name="MAV_CMD_ICE_ENGINE_HOURS">
+      <description>Engine Hours and other service related data</description>
+        <param index="1">Total Engine Hours</param>
+        <param index="2">Odometer</param>
+        <param index="3">Trip Distance</param>
+        <param index="4">Reserved</param>
+        <param index="5">Reserved</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>      
+	    <entry value="42306" name="MAV_CMD_ICE_ENGINE_DTC">
+      <description>Engine Diagnostic Trouble Codes and Check Engine Light status</description>
+        <param index="1">DTC Index</param>
+        <param index="2">Check Engine Light</param>
+        <param index="3">SPN</param>
+        <param index="4">FMI</param>
+        <param index="5">Occurrence Count</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>    
+      <entry value="42307" name="MAV_CMD_ICE_CLUSTER_DTC">   
+      <description>Cluster Diagnostic Trouble Codes</description>
+        <param index="1">DTC Index</param>
+        <param index="2">Check Engine Light</param>
+        <param index="3">SPN</param>
+        <param index="4">FMI</param>
+        <param index="5">Occurrence Count</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>     
+      <entry value="42308" name="MAV_CMD_ICE_STEERING_DTC">
+      <description>Steering System Diagnostic Trouble Codes and Steering Light status</description>
+        <param index="1">DTC Index</param>
+        <param index="2">Check Engine Light</param>
+        <param index="3">SPN</param>
+        <param index="4">FMI</param>
+        <param index="5">Occurrence Count</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>         
       <!-- END of ICE range (42300 to 42399) -->
     </enum>
     <enum name="MAV_DATA_STREAM">
