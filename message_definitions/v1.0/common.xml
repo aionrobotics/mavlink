@@ -2290,7 +2290,7 @@
         <param index="7">Reserved</param>
       </entry>
       <entry value="42302" name="MAV_CMD_ICE_FUEL_LEVEL">
-		<description>Fuel tank/cell level.</description>
+		  <description>Fuel tank/cell level.</description>
         <param index="1">Index of fuel tank.</param>
         <param index="2">Fuel type, see MAV_ICE_FUEL_TYPE enum.</param>
         <param index="3">Fuel level measurement units, see MAV_ICE_FUEL_LEVEL_UNITS enum.</param>
@@ -2359,6 +2359,16 @@
         <param index="6">Reserved</param>
         <param index="7">Reserved</param>
       </entry>         
+      <entry value="42309" name="MAV_CMD_ICE_DISABLE_NEUTRAL_BRAKE">
+      <description>Disable the breake while this message is recieved, if the vehicle is in Neutral.</description>
+        <param index="1">Brake State, 0 = enabled while in Neutral, 1 = disabled while in neutral</param>
+        <param index="2">Reserved</param>
+        <param index="3">Reserved</param>
+        <param index="4">Reserved</param>
+        <param index="5">Reserved</param>
+        <param index="6">Reserved</param>
+        <param index="7">Reserved</param>
+      </entry>
       <!-- END of ICE range (42300 to 42399) -->
     </enum>
     <enum name="MAV_DATA_STREAM">
