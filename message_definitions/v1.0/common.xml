@@ -505,7 +505,7 @@
         <description>Loiter around this waypoint an unlimited amount of time</description>
         <param index="1">Empty</param>
         <param index="2">Empty</param>
-        <param index="3" label="Radius" units="m">Radius around waypoint. If positive loiter clockwise, else counter-clockwise</param>
+        <param index="3" label="Radius" units="m">Loiter radius around waypoint for forward-only moving vehicles (not multicopters). If positive loiter clockwise, else counter-clockwise</param>
         <param index="4" label="Yaw" units="deg">Desired yaw angle. NaN to use the current system yaw heading mode (e.g. yaw towards next waypoint, yaw to home, etc.).</param>
         <param index="5" label="Latitude">Latitude</param>
         <param index="6" label="Longitude">Longitude</param>
@@ -3870,7 +3870,7 @@
     </message>
     <message id="74" name="VFR_HUD">
       <description>Metrics typically displayed on a HUD for fixed wing aircraft.</description>
-      <field type="float" name="airspeed" units="m/s">Current indicated airspeed (IAS).</field>
+      <field type="float" name="airspeed" units="m/s">Vehicle speed in form appropriate for vehicle type. For standard aircraft this is typically calibrated airspeed (CAS) or indicated airspeed (IAS) - either of which can be used by a pilot to estimate stall speed.</field>
       <field type="float" name="groundspeed" units="m/s">Current ground speed.</field>
       <field type="int16_t" name="heading" units="deg">Current heading in compass units (0-360, 0=north).</field>
       <field type="uint16_t" name="throttle" units="%">Current throttle setting (0 to 100).</field>
@@ -4476,6 +4476,7 @@
       <field type="float" name="horizontal_fov" units="rad">Horizontal Field of View (angle) where the distance measurement is valid and the field of view is known. Otherwise this is set to 0.</field>
       <field type="float" name="vertical_fov" units="rad">Vertical Field of View (angle) where the distance measurement is valid and the field of view is known. Otherwise this is set to 0.</field>
       <field type="float[4]" name="quaternion">Quaternion of the sensor orientation in vehicle body frame (w, x, y, z order, zero-rotation is 1, 0, 0, 0). Zero-rotation is along the vehicle body x-axis. This field is required if the orientation is set to MAV_SENSOR_ROTATION_CUSTOM. Set it to 0 if invalid."</field>
+      <field type="uint8_t" name="signal_quality" units="%">Signal quality of the sensor. Specific to each sensor type, representing the relation of the signal strength with the target reflectivity, distance, size or aspect, but normalised as a percentage. 0 = unknown/unset signal quality, 1 = invalid signal, 100 = perfect signal.</field>
     </message>
     <message id="133" name="TERRAIN_REQUEST">
       <description>Request for terrain data and terrain status. See terrain protocol docs: https://mavlink.io/en/services/terrain.html</description>
@@ -5069,9 +5070,9 @@
       <field type="uint16_t" name="sequence">sequence number (must match the one in LOGGING_DATA_ACKED)</field>
     </message>
     <message id="299" name="WIFI_CONFIG_AP">
-      <description>Configure AP SSID and Password.</description>
-      <field type="char[32]" name="ssid">Name of Wi-Fi network (SSID). Leave it blank to leave it unchanged.</field>
-      <field type="char[64]" name="password">Password. Leave it blank for an open AP.</field>
+      <description>Configure WiFi AP SSID, password, and mode. This message is re-emitted as an acknowledgement by the AP. The message may also be explicitly requested using MAV_CMD_REQUEST_MESSAGE</description>
+      <field type="char[32]" name="ssid">Name of Wi-Fi network (SSID). Blank to leave it unchanged when setting. Current SSID when sent back as a response.</field>
+      <field type="char[64]" name="password">Password. Blank for an open AP. MD5 hash when message is sent back as a response.</field>
     </message>
     <message id="301" name="AIS_VESSEL">
       <wip/>
